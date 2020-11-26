@@ -2,12 +2,19 @@ image:
   file: .gitpod.Dockerfile
 # This is to get rid of the annoying popup feel free to leave this out
 ports:
-  - port: 9000
+  - port: 3306
     onOpen: ignore
 vscode:
   extensions:
     - felixfbecker.php-debug@1.13.0:WX8Y3EpQk3zgahy41yJtNQ==
 
 tasks:
-  - init: 'php bin/console dependencies install'
-    command: 'apachectl start'
+  - init: 'mysql -u root -e "CREATE DATABASE glpi" && php bin/console dependencies install'
+#    command: 'apachectl start'
+  - name: MySQL start
+    command: >
+        mysqld
+  - name: Apache start and log
+    command: >
+        apachectl start;
+        multitail /var/log/apache2/error.log -I /var/log/apache2/access.log

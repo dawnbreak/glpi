@@ -5,9 +5,9 @@ FROM gitpod/workspace-mysql
 # More information: https://www.gitpod.io/docs/config-docker/
 
 # install GLPI requirememts
-RUN sudo apt-get update -q
-RUN sudo apt-get install -y php-dev php-apcu php-xmlrpc php-bz2 php-ldap
-RUN sudo apt-get clean && rm -rf /var/cache/apt/* /var/lib/apt/lists/* /tmp/*
+RUN sudo apt-get update -q \
+    && sudo apt-get install -y php-dev php-apcu php-xmlrpc php-bz2 php-ldap \
+    && sudo rm -rf /var/cache/apt/* /var/lib/apt/lists/* /tmp/*
 
 RUN wget http://xdebug.org/files/xdebug-2.9.1.tgz \
     && tar -xvzf xdebug-2.9.1.tgz \
